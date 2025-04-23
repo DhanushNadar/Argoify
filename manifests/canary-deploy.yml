@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app-canary
+  labels:
+    app: nodejs-app
+    version: canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-app
+      version: canary
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+        version: canary
+    spec:
+      containers:
+        - name: nodejs-app
+          image: dhanushnadar/my-python-app:latest
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"

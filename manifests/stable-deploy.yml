@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app-stable
+  labels:
+    app: nodejs-app
+    version: stable
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodejs-app
+      version: stable
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+        version: stable
+    spec:
+      containers:
+        - name: nodejs-app
+          image: dhanushnadar/my-node-app:build-3
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
