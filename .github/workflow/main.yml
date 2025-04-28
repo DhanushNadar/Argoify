@@ -1,0 +1,30 @@
+
+name: Test and Auto-Merge to Main
+
+on:
+  push:
+    branches:
+      - test
+
+permissions:
+  contents: write  
+
+jobs:
+  test-and-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v4
+
+    - name: Fake Testing
+      run: echo "Testing the code..."
+
+    - name: Merge test → main
+      uses: devmasx/merge-branch@v1.3.1
+      with:
+        type: now
+        from_branch: test
+        target_branch: main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
